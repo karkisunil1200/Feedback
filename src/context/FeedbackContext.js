@@ -5,6 +5,7 @@ const FeedbackContext = createContext();
 
 export const FeedbackProvider = ({ children }) => {
   const [feedback, setFeedback] = useState([]);
+  const [isLoading, setIsLoading] = useState([true]);
 
   const [feedbackEdit, setFeedbackEdit] = useState({
     item: {},
@@ -23,6 +24,7 @@ export const FeedbackProvider = ({ children }) => {
     );
     const data = await response.json();
     setFeedback(data);
+    setIsLoading(false);
   };
 
   //set item to be updated
@@ -58,10 +60,11 @@ export const FeedbackProvider = ({ children }) => {
     <FeedbackContext.Provider
       value={{
         feedback,
+        feedbackEdit,
+        isLoading,
         deleteFeedback,
         addFeedback,
         editFeedback,
-        feedbackEdit,
         updateFeedback,
       }}
     >
